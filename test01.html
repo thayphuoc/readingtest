@@ -320,6 +320,29 @@
                  highlightButton = null;
              }
          });
+
+	// Add this code within your existing script section
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert('Content is protected!!!');
+    return false;
+});
+
+// Disable common keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+    if (e.key === 'F12' || 
+       (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+       (e.ctrlKey && e.key === 'u') || 
+	(e.ctrlKey && e.key === 'p') || 
+       (e.ctrlKey && e.key === 's')) {
+        e.preventDefault();
+        alert('Content is protected!!!');
+        return false;
+    }
+});
+
+
       </script>
    </body>
 </html>
