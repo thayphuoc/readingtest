@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         body {
+         font-family: Arial, sans-serif; /* Add Arial font */
+         .container {
+         display: flex;
+         height: 100vh;
+         }
+         .text-section {
+         flex: 1;
+         padding: 20px;
+         overflow-y: auto;
+         border-right: 2px solid #ccc;
+         }
+         .questions-section {
+         flex: 1;
+         padding: 20px;
+         overflow-y: auto;
+         }
+         table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 20px;
+         }
+         th, td {
+         border: 1px solid #ddd;
+         padding: 8px;
+         text-align: left;
+         }
+         th {
+         background-color: #f2f2f2;
+         }
+         /* Add button styling */
+         #showAnswers {
+         margin-top: 20px;
+         padding: 10px 20px;
+         background-color: #4CAF50;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         font-size: 16px;
+         }
+         #clearAnswers {
+         margin-top: 20px;
+         padding: 10px 20px;
+         background-color: #f44336;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         font-size: 16px;
+         }
+         .answer-input {
+         width: 120px;
+         padding: 4px;
+         border: 1px solid #999;
+         display: inline-block;
+         font-family: Arial, sans-serif;
+         font-size: 1em; /* Match body text size */	
+         }
+         .button-group {
+         margin-top: 20px;
+         display: flex;
+         gap: 10px;
+         }
+         .action-button {
+         padding: 10px 20px;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         font-size: 16px;
+         }
+         .action-button:hover {
+         opacity: 0.9;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="text-section">
+            <h2>The world's friendliest city</h2>
+            <p>A team of social psychologists from California has spent six years studying the reactions of people in cities around the world to different situations. The results show that cities where people have less money generally have friendlier populations. Rio de Janeiro in Brazil, which is often known for its crime, comes out top, and the capital of Malawi, Lilongwe, comes third.</p>
+            <p>But what makes one city friendlier than another? The psychologists from California State University say it has got more to do with environment than culture or nationality.</p>
+            <p>They carried out a study into the way locals treated strangers in 23 cities around the world. The team conducted their research through a series of tests, where they dropped pens, or pretended they were blind and needed help crossing the street.</p>
+            <p>The study concludes that people are more helpful in cities with a more relaxed way of life such as Rio. While they were there, researchers received help in 93 percent of cases, and the percentage in Lilongwe was only a little lower. However, richer cities such as Amsterdam and New York are considered the least friendly. Inhabitants of Amsterdam helped the researchers in 53 percent of cases and in New York just 44 percent. The psychologists found that, in these cities, people tend to be short of time, so they hurry and often ignore strangers.</p>
+         </div>
+         <div class="questions-section">
+            <h2>Questions 1-5</h2>
+            <p>Complete the table below.<br>Choose ONE WORD from the passage for each answer.</p>
+            <table>
+               <tr>
+                  <th>City</th>
+                  <th>Positive aspects</th>
+                  <th>Negative aspects</th>
+                  <th>% of help received</th>
+               </tr>
+               <tr>
+                  <td>Rio de Janeiro</td>
+                  <td>• friendly inhabitants<br>• more <input type="text" class="answer-input" aria-label="Answer 1"> lifestyle</td>
+                  <td>• People don't have so much <input type="text" class="answer-input" aria-label="Answer 2"><br>• Has reputation for <input type="text" class="answer-input" aria-label="Answer 3"></td>
+                  <td>93%</td>
+               </tr>
+               <tr>
+                  <td>Amsterdam and New York</td>
+                  <td>• richer</td>
+                  <td>• have little <input type="text" class="answer-input" aria-label="Answer 4"><br>• don't pay attention to <input type="text" class="answer-input" aria-label="Answer 5"></td>
+                  <td>Amsterdam: 53%<br>New York: 44%</td>
+               </tr>
+            </table>
+	<div 
+         class="button-group">
+         <button id="showAnswers" class="action-button" onclick="showAnswers()">Show Answers</button>
+         <button id="clearAnswers" class="action-button" onclick="clearAnswers()">Clear Answers</button>
+      </div>
+         </div>
+      </div>
+      </div>
+      <script>
+         // Answer management
+         const answers = ["relaxed", "money", "crime", "time", "strangers"];
+         
+         function showAnswers() {
+             const inputs = document.querySelectorAll('.answer-input');
+             inputs.forEach((input, index) => input.value = answers[index]);
+         }
+         
+         function clearAnswers() {
+             document.querySelectorAll('.answer-input').forEach(input => input.value = '');
+         }
+         
+         
+         document.addEventListener('mousedown', (e) => {
+             if (highlightButton && !highlightButton.contains(e.target)) {
+                 highlightButton.remove();
+                 highlightButton = null;
+             }
+         });
+      </script>
+   </body>
+</html>
