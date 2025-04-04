@@ -2,6 +2,37 @@
 <html>
    <head>
       <style>
+         /* Add password protection styles */
+         #passwordOverlay {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background: rgba(0, 0, 0, 0.8);
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         z-index: 1000;
+         }
+         #passwordForm {
+         background: white;
+         padding: 30px;
+         border-radius: 8px;
+         text-align: center;
+         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+         }
+         #passwordInput {
+         padding: 10px;
+         margin: 15px 0;
+         width: 200px;
+         font-size: 16px;
+         }
+         #passwordError {
+         color: red;
+         margin-top: 10px;
+         display: none;
+         }	
          body {
          font-family: Arial, sans-serif; /* Add Arial font */
          .container {
@@ -80,6 +111,20 @@
       </style>
    </head>
    <body>
+      <!-- Password Protection Overlay -->
+      <div id="passwordOverlay">
+         <div id="passwordForm">
+            <h2>Enter Password to Access Content</h2>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <br>
+            <button onclick="checkPassword()">Submit</button>
+            <div id="passwordError">Incorrect password! Please try again.</div>
+         </div>
+      </div>
+      <!-- Existing Content (initially hidden) -->
+      <div class="container hidden">
+         <!-- ... (keep all previous content) ... -->
+      </div>
       <div class="container">
          <div class="text-section">
             <h2>The world's friendliest city</h2>
@@ -111,34 +156,66 @@
                   <td>Amsterdam: 53%<br>New York: 44%</td>
                </tr>
             </table>
-	<div 
-         class="button-group">
-         <button id="showAnswers" class="action-button" onclick="showAnswers()">Show Answers</button>
-         <button id="clearAnswers" class="action-button" onclick="clearAnswers()">Clear Answers</button>
-      </div>
+            <div 
+               class="button-group">
+               <button id="showAnswers" class="action-button" onclick="showAnswers()">Show Answers</button>
+               <button id="clearAnswers" class="action-button" onclick="clearAnswers()">Clear Answers</button>
+            </div>
          </div>
       </div>
       </div>
       <script>
-         // Answer management
-         const answers = ["relaxed", "money", "crime", "time", "strangers"];
+         // Password Configuration
+                const CORRECT_PASSWORD = "ielts123";
+                let attempts = 0;
          
-         function showAnswers() {
-             const inputs = document.querySelectorAll('.answer-input');
-             inputs.forEach((input, index) => input.value = answers[index]);
-         }
+                function checkPassword() {
+                    const input = document.getElementById('passwordInput');
+                    const error = document.getElementById('passwordError');
+                    const container = document.querySelector('.container');
+                    
+                    if(input.value === CORRECT_PASSWORD) {
+                        document.getElementById('passwordOverlay').style.display = 'none';
+                        container.classList.add('unlocked');
+                    } else {
+                        attempts++;
+                        error.style.display = 'block';
+                        input.value = '';
+                        if(attempts >= 3) {
+                            error.textContent = "Too many failed attempts. Refresh the page to try again.";
+                            input.disabled = true;
+                        }
+                    }
+                }
          
-         function clearAnswers() {
-             document.querySelectorAll('.answer-input').forEach(input => input.value = '');
-         }
+                // Enter key support
+                document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                    if(e.key === 'Enter') {
+                        checkPassword();
+                    }
+                });
          
          
-         document.addEventListener('mousedown', (e) => {
-             if (highlightButton && !highlightButton.contains(e.target)) {
-                 highlightButton.remove();
-                 highlightButton = null;
-             }
-         });
+                 // Answer management
+                 const answers = ["relaxed", "money", "crime", "time", "strangers"];
+                 
+                 function showAnswers() {
+                     const inputs = document.querySelectorAll('.answer-input');
+                     inputs.forEach((input, index) => input.value = answers[index]);
+                 }
+                 
+                 function clearAnswers() {
+                     document.querySelectorAll('.answer-input').forEach(input => input.value = '');
+                 }
+                 
+                 
+                 document.addEventListener('mousedown', (e) => {
+                     if (highlightButton && !highlightButton.contains(e.target)) {
+                         highlightButton.remove();
+                         highlightButton = null;
+                     }
+                 });
+              
       </script>
    </body>
 </html>
